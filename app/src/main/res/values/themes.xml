@@ -7,4 +7,5 @@
         <item name="colorAccent">@color/soft_blue</item>
         <!-- Customize your theme here. -->
     </style>
+
 </resources>

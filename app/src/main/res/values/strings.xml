@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">EduFinderMadrid</string>
     <string name="show">SHOW</string>
+    <string name="filter">FILTER</string>
+    <string name="list">list</string>
+    <string name="map">map</string>
 </resources>
