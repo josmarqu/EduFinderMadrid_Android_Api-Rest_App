@@ -1,4 +1,4 @@
 package app.edufindermadrid.fragments.list;
 
-public class FragmentListAdapter {
+public class ListAdapter {
 }

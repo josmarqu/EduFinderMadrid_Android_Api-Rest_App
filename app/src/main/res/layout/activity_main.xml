@@ -52,7 +52,7 @@
         android:layout_marginEnd="70dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/roundstyle"
-        android:backgroundTint="#C9E357"
+        android:backgroundTint="@color/soft_green"
         android:text="@string/show"
         android:textColor="@color/white"
         android:textSize="34sp"
