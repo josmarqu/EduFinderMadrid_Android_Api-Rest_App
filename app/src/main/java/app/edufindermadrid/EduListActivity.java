@@ -17,15 +17,24 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import app.edufindermadrid.api.APIRestService;
+import app.edufindermadrid.api.RetrofitClient;
 import app.edufindermadrid.dialog.DialogFilter;
 import app.edufindermadrid.dialog.OnDialogListener;
 import app.edufindermadrid.entities.EduCenter;
+import app.edufindermadrid.entities.EduCenterList;
 import app.edufindermadrid.fragments.FragmentMap;
 import app.edufindermadrid.fragments.list.FragmentList;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class EduListActivity extends AppCompatActivity implements OnDialogListener{
     private Button btnFilter;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -34,6 +43,27 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
         setContentView(R.layout.activity_school_list);
         initActionBar();
         initFilter();
+        initData();
+    }
+
+    private void initData() {
+        Retrofit retrofit = RetrofitClient.getClient(APIRestService.BASE_URL);
+        APIRestService apiRestService = retrofit.create(APIRestService.class);
+        Call<EduCenterList> call = apiRestService.getEduCenters();
+        call.enqueue(new Callback<EduCenterList>() {
+            @Override
+            public void onResponse(Call<EduCenterList> call, Response<EduCenterList> response) {
+                if (response.isSuccessful()) {
+                    EduCenterList eduCenterList = response.body();
+                    loadFragment(new FragmentList(eduCenterList.getEduCenters()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EduCenterList> call, Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+        });
     }
 
     private void initFilter() {
@@ -67,20 +97,7 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if  (id == R.id.list) {
-            ArrayList<EduCenter> eduCenterList = new ArrayList<>();
-            eduCenterList.add(new EduCenter("https://datos.madrid.es/egob/catalogo/tipo/entidadesyorganismos/6408-centro-ensenanza-superior-cardenal-cisneros.json",
-                    "\"https://datos.madrid.es/egob/kos/entidadesYorganismos/Universidades/OtrosCentrosUniversitarios",
-                    "Centro de Enseñanza Superior Cardenal Cisneros"));
-            eduCenterList.add(new EduCenter("https://datos.madrid.es/egob/catalogo/tipo/entidadesyorganismos/6408-centro-ensenanza-superior-cardenal-cisneros.json",
-                    "\"https://datos.madrid.es/egob/kos/entidadesYorganismos/Universidades/OtrosCentrosUniversitarios",
-                    "Centro de Enseñanza Superior Cardenal Cisneros"));
-            eduCenterList.add(new EduCenter("https://datos.madrid.es/egob/catalogo/tipo/entidadesyorganismos/6408-centro-ensenanza-superior-cardenal-cisneros.json",
-                    "\"https://datos.madrid.es/egob/kos/entidadesYorganismos/Universidades/OtrosCentrosUniversitarios",
-                    "Centro de Enseñanza Superior Cardenal Cisneros"));
-            eduCenterList.add(new EduCenter("https://datos.madrid.es/egob/catalogo/tipo/entidadesyorganismos/6408-centro-ensenanza-superior-cardenal-cisneros.json",
-                    "\"https://datos.madrid.es/egob/kos/entidadesYorganismos/Universidades/OtrosCentrosUniversitarios",
-                    "Superior Cardenal Cisneros"));
-            loadFragment(new FragmentList(eduCenterList));
+           // loadFragment(new FragmentList(eduCenterList));
         } else if (id == R.id.map){
             loadFragment(new FragmentMap());
         }
