@@ -1,8 +1,16 @@
 package app.edufindermadrid.entities;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
     private Double latitude;
     private Double longitude;
 
-    //TODO: Getters and Setters
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
 }

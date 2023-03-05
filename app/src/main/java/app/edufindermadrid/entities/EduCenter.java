@@ -1,9 +1,13 @@
 package app.edufindermadrid.entities;
 
 
+import android.location.Address;
+
 import com.google.gson.annotations.SerializedName;
 
-public class EduCenter {
+import java.io.Serializable;
+
+public class EduCenter implements Serializable {
     @SerializedName("@id")
     private String id;
     private String title;
@@ -12,5 +16,9 @@ public class EduCenter {
 
     public String getTitle() {
         return title;
+    }
+
+    public Location getLocation() {
+        return location;
     }
 }

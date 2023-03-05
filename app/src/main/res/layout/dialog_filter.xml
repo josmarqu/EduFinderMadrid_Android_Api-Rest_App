@@ -55,29 +55,27 @@
         android:orientation="vertical">
 
 
-            <EditText
-                android:id="@+id/etLat"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/white"
-                android:ems="10"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:inputType="numberDecimal"
-                />
+        <EditText
+            android:id="@+id/etLat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:ems="10"
+            android:inputType="numberSigned|numberDecimal"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
 
-            <EditText
-                android:id="@+id/etLon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:backgroundTint="@color/white"
-                android:ems="10"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:inputType="numberDecimal"
-                />
+        <EditText
+            android:id="@+id/etLon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:ems="10"
+            android:inputType="numberSigned|numberDecimal"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
 
             <EditText
                 android:id="@+id/etDis"

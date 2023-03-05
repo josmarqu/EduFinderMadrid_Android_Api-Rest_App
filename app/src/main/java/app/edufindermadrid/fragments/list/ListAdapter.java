@@ -13,14 +13,15 @@ import java.util.List;
 
 import app.edufindermadrid.R;
 import app.edufindermadrid.entities.EduCenter;
+import app.edufindermadrid.entities.EduCenterList;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> implements View.OnClickListener{
-    private List<EduCenter> edList;
+    private EduCenterList edList;
     private View.OnClickListener listener;
     private Context context;
-    private boolean filtered = false;
+    private boolean filtered;
 
-    public ListAdapter(List<EduCenter> edList, Context context, boolean filtered) {
+    public ListAdapter(EduCenterList edList, Context context, boolean filtered) {
         this.edList = edList;
         this.context = context;
         this.filtered = filtered;
@@ -39,7 +40,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ListAdapter.ListViewHolder holder, int position) {
-        EduCenter ed = edList.get(position);
+        EduCenter ed = edList.getEduCenters().get(position);
         holder.tvEduName.setText(ed.getTitle());
         setItemMargins(holder, position);
     }
@@ -51,7 +52,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         if (position == 0) {
             layoutParams.setMargins(0, marginTop , 0, 0);
         }
-        else if (position == edList.size() - 1) {
+        else if (position == edList.getEduCenters().size() - 1) {
             layoutParams.setMargins(0, marginTop, 0, marginBot);
         }
         else {
@@ -63,14 +64,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     @Override
     public int getItemCount() {
-        return edList.size();
+        return edList.getEduCenters().size();
     }
 
     public void setOnClickListener(View.OnClickListener listener){
         this.listener = listener;
     }
-
-    @Override
+@Override
     public void onClick(View view) {
         if(listener != null){
             listener.onClick(view);

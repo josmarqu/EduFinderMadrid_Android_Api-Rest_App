@@ -18,10 +18,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainer;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.fragment.app.FragmentTransaction;
 
 import app.edufindermadrid.api.APIRestService;
 import app.edufindermadrid.api.RetrofitClient;
@@ -31,7 +28,6 @@ import app.edufindermadrid.entities.EduCenter;
 import app.edufindermadrid.entities.EduCenterList;
 import app.edufindermadrid.fragments.FragmentMap;
 import app.edufindermadrid.fragments.list.FragmentList;
-import app.edufindermadrid.fragments.list.ListAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +41,7 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
     private Double lat;
     private Double lon;
     private int dis;
+    private EduCenterList eduCenterList;
 
 
     @SuppressLint("MissingInflatedId")
@@ -54,11 +51,12 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
         setContentView(R.layout.activity_school_list);
         initActionBar();
         initFilter();
-        loadData();
+        FragmentList fragmentList = new FragmentList();
+        loadData(fragmentList);
     }
 
 
-    private void loadData() {
+    private void loadData(Fragment frg) {
         Retrofit retrofit = RetrofitClient.getClient(APIRestService.BASE_URL);
         APIRestService apiRestService = retrofit.create(APIRestService.class);
         Call<EduCenterList> call;
@@ -72,11 +70,22 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
             @Override
             public void onResponse(Call<EduCenterList> call, Response<EduCenterList> response) {
                 if (response.isSuccessful()) {
-                    EduCenterList eduCenterList = response.body();
-                    if (eduCenterList.getEduCenters().size() == 0) {
+                    eduCenterList = response.body();
+                    if (frg instanceof FragmentList) {
+                        FragmentList fragmentList = (FragmentList) frg;
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frgContainer, fragmentList.newInstance(eduCenterList, filter));
+                        transaction.commit();
+                    }else
+                    {
+                        FragmentMap fragmentMap = (FragmentMap) frg;
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frgContainer, fragmentMap.newInstance(eduCenterList));
+                        transaction.commit();
+                    }
+                    if (EduListActivity.this.eduCenterList.getEduCenters().size() == 0) {
                         Toast.makeText(EduListActivity.this, R.string.filterError, Toast.LENGTH_SHORT).show();
                     }
-                    loadFragment(new FragmentList(eduCenterList.getEduCenters(), filter));
                 }
             }
 
@@ -117,16 +126,14 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Fragment frg = null;
         if  (id == R.id.list) {
-            loadData();
+            frg = new FragmentList(); 
         } else if (id == R.id.map){
-            loadFragment(new FragmentMap());
+            frg = new FragmentMap(); 
         }
+        loadData(frg);
         return super.onOptionsItemSelected(item);
-    }
-
-    private void loadFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frgContainer, fragment).commit();
     }
 
     @Override
@@ -136,7 +143,8 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
         this.dis = (int) dis;
         setFilterLl(lat, lon, dis);
         filter = true;
-        loadData();
+        FragmentList fragmentList = FragmentList.newInstance(eduCenterList, filter);
+        loadData(fragmentList);
     }
 
     private void setFilterLl(double lat, double lon, double dis) {
@@ -145,4 +153,5 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
         tvMeasures.setText("Lat: " + lat + " Lon: " + lon + "\n Distance: " + dis + " meters");
         lLayTvMeasures.setVisibility(LinearLayout.VISIBLE);
     }
+
 }

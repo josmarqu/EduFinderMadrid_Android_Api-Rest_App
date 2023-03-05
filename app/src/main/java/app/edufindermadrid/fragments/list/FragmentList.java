@@ -16,15 +16,22 @@ import java.util.List;
 import app.edufindermadrid.EduInfoActivity;
 import app.edufindermadrid.R;
 import app.edufindermadrid.entities.EduCenter;
+import app.edufindermadrid.entities.EduCenterList;
 
 public class FragmentList extends Fragment {
 
-    private List<EduCenter> eduCenterList;
-    private Boolean filtered = false;
+    private EduCenterList eduCenterList;
+    private Boolean filtered; 
 
-    public FragmentList(List<EduCenter> eduCenterList, Boolean filtered) {
-        this.eduCenterList = eduCenterList;
-        this.filtered = filtered;
+    public FragmentList() {
+        // Required empty public constructor
+    }
+
+    public static FragmentList newInstance(EduCenterList eduCenterList, Boolean filtered) {
+        FragmentList fragment = new FragmentList();
+        fragment.eduCenterList = eduCenterList;
+        fragment.filtered = filtered;
+        return fragment;
     }
 
     @Override
@@ -38,7 +45,7 @@ public class FragmentList extends Fragment {
         ListAdapter adapter = new ListAdapter(eduCenterList, this.getContext(), filtered);
         recyclerView.setAdapter(adapter);
         adapter.setOnClickListener(view1 -> {
-            EduCenter eduCenter = eduCenterList.get(recyclerView.getChildAdapterPosition(view1));
+            EduCenter eduCenter = eduCenterList.getEduCenters().get(recyclerView.getChildAdapterPosition(view1));
             Intent intent = new Intent(getContext(), EduInfoActivity.class);
             intent.putExtra("eduTittle", eduCenter.getTitle());
             startActivity(intent);
