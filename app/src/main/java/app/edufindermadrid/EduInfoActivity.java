@@ -1,9 +1,11 @@
 package app.edufindermadrid;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SchoolInfoActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+
+public class EduInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

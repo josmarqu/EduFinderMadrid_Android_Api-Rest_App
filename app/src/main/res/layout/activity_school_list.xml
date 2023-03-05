@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SchoolListActivity">
+    tools:context=".EduListActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,12 +17,11 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/frgContainer"
-        android:name="app.edufindermadrid.fragments.list.FragmentList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@id/btnFilter"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:layout="@layout/fragment_list">
+        >
 
     </androidx.fragment.app.FragmentContainerView>
 

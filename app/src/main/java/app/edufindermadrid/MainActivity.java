@@ -17,9 +17,8 @@ private Button btnShow;
     private void initButton() {
         btnShow = (Button) findViewById(R.id.btnShow);
         btnShow.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, SchoolListActivity.class);
+            Intent intent = new Intent(MainActivity.this, EduListActivity.class);
             startActivity(intent);
         });
-
     }
 }
