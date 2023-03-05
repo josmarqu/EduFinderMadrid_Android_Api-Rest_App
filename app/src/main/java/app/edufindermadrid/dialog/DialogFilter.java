@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -41,10 +42,19 @@ public class DialogFilter extends DialogFragment {
         ad.setOnShowListener(dialogInterface -> {
             Button btnPositive = ad.getButton(AlertDialog.BUTTON_POSITIVE);
             btnPositive.setOnClickListener(view -> {
-                double lat = Double.parseDouble(etLat.getText().toString());
-                double lon = Double.parseDouble(etLon.getText().toString());
-                double dis = Double.parseDouble(etDis.getText().toString());
-                mListener.onDialogPositiveClick(lat, lon, dis);
+                String lat = etLat.getText().toString();
+                if (lat.isEmpty()) {
+                    lat = "0";
+                }
+                String lon = etLon.getText().toString();
+                if (lon.isEmpty()) {
+                    lon = "0";
+                }
+                String dis = etDis.getText().toString();
+                if (dis.isEmpty()) {
+                    dis = "0";
+                }
+                mListener.onDialogPositiveClick(Double.parseDouble(lat), Double.parseDouble(lon), Double.parseDouble(dis));
                 ad.dismiss();
             });
         });

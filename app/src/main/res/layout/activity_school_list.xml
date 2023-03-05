@@ -12,17 +12,42 @@
         android:layout_height="80dp"
         android:background="@color/soft_blue"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/MainActionBar"
-      />
+        app:popupTheme="@style/MainActionBar" />
+
+    <LinearLayout
+        android:id="@+id/lLayTvMeasures"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/lessroundstyle"
+        android:backgroundTint="@color/soft_blue_light"
+        android:elevation="10dp"
+        android:alpha="1"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        >
+
+        <TextView
+            android:id="@+id/tvMeasures"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"></TextView>
+    </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/frgContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        >
-
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+       >
     </androidx.fragment.app.FragmentContainerView>
 
     <Button

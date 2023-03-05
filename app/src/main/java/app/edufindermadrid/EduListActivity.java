@@ -11,10 +11,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,7 @@ import app.edufindermadrid.entities.EduCenter;
 import app.edufindermadrid.entities.EduCenterList;
 import app.edufindermadrid.fragments.FragmentMap;
 import app.edufindermadrid.fragments.list.FragmentList;
+import app.edufindermadrid.fragments.list.ListAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,6 +38,9 @@ import retrofit2.Retrofit;
 
 public class EduListActivity extends AppCompatActivity implements OnDialogListener{
     private Button btnFilter;
+    private LinearLayout lLayTvMeasures;
+    private TextView tvMeasures;
+    private Boolean filter = false;
 
 
     @SuppressLint("MissingInflatedId")
@@ -46,6 +53,7 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
         loadData();
     }
 
+
     private void loadData() {
         Retrofit retrofit = RetrofitClient.getClient(APIRestService.BASE_URL);
         APIRestService apiRestService = retrofit.create(APIRestService.class);
@@ -55,7 +63,7 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
             public void onResponse(Call<EduCenterList> call, Response<EduCenterList> response) {
                 if (response.isSuccessful()) {
                     EduCenterList eduCenterList = response.body();
-                    loadFragment(new FragmentList(eduCenterList.getEduCenters()));
+                    loadFragment(new FragmentList(eduCenterList.getEduCenters(), filter));
                 }
             }
 
@@ -105,13 +113,21 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
     }
 
     private void loadFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frgContainer, fragment).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frgContainer, fragment).commit();
     }
 
     @Override
     public void onDialogPositiveClick(double lat, double lon, double dis) {
-        // Dialog Filter Test
-        System.out.println("Lat: " + lat + " Lon: " + lon + " Dis: " + dis);
+        setFilterLl(lat, lon, dis);
+        filter = true;
+        loadData();
+    }
+
+    private void setFilterLl(double lat, double lon, double dis) {
+        lLayTvMeasures = findViewById(R.id.lLayTvMeasures);
+        tvMeasures = findViewById(R.id.tvMeasures);
+        tvMeasures.setText("Lat: " + lat + " Lon: " + lon + "\n Distance: " + dis + " meters");
+        lLayTvMeasures.setVisibility(LinearLayout.VISIBLE);
+
     }
 }

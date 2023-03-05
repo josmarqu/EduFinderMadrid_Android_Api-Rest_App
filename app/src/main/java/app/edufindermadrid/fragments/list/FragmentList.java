@@ -20,9 +20,11 @@ import app.edufindermadrid.entities.EduCenter;
 public class FragmentList extends Fragment {
 
     private List<EduCenter> eduCenterList;
+    private Boolean filtered = false;
 
-    public FragmentList(List<EduCenter> eduCenterList) {
+    public FragmentList(List<EduCenter> eduCenterList, Boolean filtered) {
         this.eduCenterList = eduCenterList;
+        this.filtered = filtered;
     }
 
     @Override
@@ -30,7 +32,10 @@ public class FragmentList extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.rvListEdu);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ListAdapter adapter = new ListAdapter(eduCenterList);
+        if (filtered) {
+            recyclerView.setPadding(0, 160, 0, 0);
+        }
+        ListAdapter adapter = new ListAdapter(eduCenterList, this.getContext(), filtered);
         recyclerView.setAdapter(adapter);
         adapter.setOnClickListener(view1 -> {
             EduCenter eduCenter = eduCenterList.get(recyclerView.getChildAdapterPosition(view1));
