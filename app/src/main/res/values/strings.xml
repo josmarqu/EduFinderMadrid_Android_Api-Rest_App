@@ -11,4 +11,5 @@
     <string name="cancel">Cancel</string>
     <string name="implement_OnDialogList">The class must implement OnDialogListener</string>
     <string name="edu_center_filter">Education Center Filter</string>
+    <string name="filterError">\" No educational centers with the established filter have been found.\"</string>
 </resources>

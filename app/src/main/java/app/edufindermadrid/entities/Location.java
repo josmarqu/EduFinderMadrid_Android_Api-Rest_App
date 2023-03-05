@@ -1,8 +1,8 @@
 package app.edufindermadrid.entities;
 
 public class Location {
-    private double latitude;
-    private double longitude;
+    private Double latitude;
+    private Double longitude;
 
     //TODO: Getters and Setters
 }

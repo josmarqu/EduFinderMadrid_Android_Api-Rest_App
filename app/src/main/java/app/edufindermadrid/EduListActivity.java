@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.widget.Toolbar;
@@ -41,6 +42,9 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
     private LinearLayout lLayTvMeasures;
     private TextView tvMeasures;
     private Boolean filter = false;
+    private Double lat;
+    private Double lon;
+    private int dis;
 
 
     @SuppressLint("MissingInflatedId")
@@ -57,12 +61,21 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
     private void loadData() {
         Retrofit retrofit = RetrofitClient.getClient(APIRestService.BASE_URL);
         APIRestService apiRestService = retrofit.create(APIRestService.class);
-        Call<EduCenterList> call = apiRestService.getEduCenters();
+        Call<EduCenterList> call;
+        if (filter == false) {
+            call = apiRestService.getEduCenters();
+        }
+        else {
+            call = apiRestService.getEduCenterFilter(lat, lon, dis);
+        }
         call.enqueue(new Callback<EduCenterList>() {
             @Override
             public void onResponse(Call<EduCenterList> call, Response<EduCenterList> response) {
                 if (response.isSuccessful()) {
                     EduCenterList eduCenterList = response.body();
+                    if (eduCenterList.getEduCenters().size() == 0) {
+                        Toast.makeText(EduListActivity.this, R.string.filterError, Toast.LENGTH_SHORT).show();
+                    }
                     loadFragment(new FragmentList(eduCenterList.getEduCenters(), filter));
                 }
             }
@@ -118,6 +131,9 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
 
     @Override
     public void onDialogPositiveClick(double lat, double lon, double dis) {
+        this.lat = lat;
+        this.lon = lon;
+        this.dis = (int) dis;
         setFilterLl(lat, lon, dis);
         filter = true;
         loadData();
@@ -128,6 +144,5 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
         tvMeasures = findViewById(R.id.tvMeasures);
         tvMeasures.setText("Lat: " + lat + " Lon: " + lon + "\n Distance: " + dis + " meters");
         lLayTvMeasures.setVisibility(LinearLayout.VISIBLE);
-
     }
 }
