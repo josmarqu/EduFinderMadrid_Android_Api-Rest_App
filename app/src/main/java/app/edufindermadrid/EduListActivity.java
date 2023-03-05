@@ -43,10 +43,10 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
         setContentView(R.layout.activity_school_list);
         initActionBar();
         initFilter();
-        initData();
+        loadData();
     }
 
-    private void initData() {
+    private void loadData() {
         Retrofit retrofit = RetrofitClient.getClient(APIRestService.BASE_URL);
         APIRestService apiRestService = retrofit.create(APIRestService.class);
         Call<EduCenterList> call = apiRestService.getEduCenters();
@@ -97,7 +97,7 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if  (id == R.id.list) {
-           // loadFragment(new FragmentList(eduCenterList));
+            loadData();
         } else if (id == R.id.map){
             loadFragment(new FragmentMap());
         }
