@@ -5,17 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
-
 import app.edufindermadrid.R;
 import app.edufindermadrid.entities.EduCenter;
 import app.edufindermadrid.entities.EduCenterList;
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> implements View.OnClickListener{
+public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> implements View.OnClickListener {
     private EduCenterList edList;
     private View.OnClickListener listener;
     private Context context;
@@ -48,17 +44,15 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     public void setItemMargins(@NonNull ListViewHolder holder, int position) {
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) holder.itemView.getLayoutParams();
         int marginBot = (int) context.getResources().getDimension(R.dimen.margItemBottom);
-        int marginTop =  (int) context.getResources().getDimension(R.dimen.margItemTop);
+        int marginTop = (int) context.getResources().getDimension(R.dimen.margItemTop);
         if (position == 0) {
-            layoutParams.setMargins(0, marginTop , 0, 0);
-        }
-        else if (position == edList.getEduCenters().size() - 1) {
+            layoutParams.setMargins(0, marginTop, 0, 0);
+        } else if (position == edList.getEduCenters().size() - 1) {
             layoutParams.setMargins(0, marginTop, 0, marginBot);
         }
         else {
             layoutParams.setMargins(0, marginTop, 0, 0);
         }
-
         holder.itemView.setLayoutParams(layoutParams);
     }
 
@@ -70,12 +64,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     public void setOnClickListener(View.OnClickListener listener){
         this.listener = listener;
     }
+
 @Override
     public void onClick(View view) {
         if(listener != null){
             listener.onClick(view);
         }
-
     }
 
     public class ListViewHolder  extends RecyclerView.ViewHolder{

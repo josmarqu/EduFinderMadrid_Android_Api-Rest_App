@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -34,6 +33,7 @@ public class DialogFilter extends DialogFragment {
         builder.setTitle(R.string.edu_center_filter);
         builder.setPositiveButton(getString(R.string.apply), null);
         builder.setNegativeButton(getString(R.string.cancel), ((dialogInterface, i) -> dialogInterface.dismiss()));
+        builder.setNeutralButton(getString(R.string.reset), (dialogInterface, i) -> dialogInterface.dismiss());
 
         AlertDialog ad = builder.create();
         ad.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.dialog_bg));
@@ -57,6 +57,11 @@ public class DialogFilter extends DialogFragment {
                 mListener.onDialogPositiveClick(Double.parseDouble(lat), Double.parseDouble(lon), Double.parseDouble(dis));
                 ad.dismiss();
             });
+            Button btnReset = ad.getButton(AlertDialog.BUTTON_NEUTRAL);
+            btnReset.setOnClickListener(view -> {
+                mListener.onDialogResetClick();
+                ad.dismiss();
+            });
         });
         return ad;
     }
@@ -67,7 +72,7 @@ public class DialogFilter extends DialogFragment {
         try {
             mListener = (OnDialogListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context + getString(R.string.implement_OnDialogList));
+            throw new ClassCastException(context + getString(R.string.implement_odl));
         }
     }
 

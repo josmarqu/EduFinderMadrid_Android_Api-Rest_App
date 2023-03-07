@@ -14,14 +14,14 @@
         android:theme="@style/Theme.EduFinderMadrid"
         tools:targetApi="31">
         <activity
-            android:name=".EduInfoActivity"
+            android:name=".EduDetailsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".EduListActivity"
+            android:name=".EduActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

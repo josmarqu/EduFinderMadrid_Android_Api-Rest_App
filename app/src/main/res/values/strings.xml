@@ -9,7 +9,10 @@
     <string name="distance">distance: </string>
     <string name="apply">Apply</string>
     <string name="cancel">Cancel</string>
-    <string name="implement_OnDialogList">The class must implement OnDialogListener</string>
+    <string name="implement_odl">The class must implement OnDialogListener</string>
     <string name="edu_center_filter">Education Center Filter</string>
-    <string name="filterError">No educational centers with the established filter have been found.</string>
+    <string name="filter_error">No educational centers with the established filter have been found.</string>
+    <string name="back">BACK</string>
+    <string name="error">\"Error: \"</string>
+    <string name="reset">RESET</string>
 </resources>

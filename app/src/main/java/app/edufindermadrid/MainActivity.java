@@ -1,9 +1,9 @@
 package app.edufindermadrid;
 
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 private Button btnShow;
@@ -17,7 +17,7 @@ private Button btnShow;
     private void initButton() {
         btnShow = (Button) findViewById(R.id.btnShow);
         btnShow.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, EduListActivity.class);
+            Intent intent = new Intent(MainActivity.this, EduActivity.class);
             startActivity(intent);
         });
     }

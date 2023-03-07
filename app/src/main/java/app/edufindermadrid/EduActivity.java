@@ -1,12 +1,7 @@
 package app.edufindermadrid;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,17 +9,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import app.edufindermadrid.api.APIRestService;
 import app.edufindermadrid.api.RetrofitClient;
 import app.edufindermadrid.dialog.DialogFilter;
 import app.edufindermadrid.dialog.OnDialogListener;
-import app.edufindermadrid.entities.EduCenter;
 import app.edufindermadrid.entities.EduCenterList;
 import app.edufindermadrid.fragments.FragmentMap;
 import app.edufindermadrid.fragments.list.FragmentList;
@@ -33,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class EduListActivity extends AppCompatActivity implements OnDialogListener{
+public class EduActivity extends AppCompatActivity implements OnDialogListener{
     private Button btnFilter;
     private LinearLayout lLayTvMeasures;
     private TextView tvMeasures;
@@ -42,19 +35,15 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
     private Double lon;
     private int dis;
     private EduCenterList eduCenterList;
+    private Fragment frgContainer;
 
-
-    @SuppressLint("MissingInflatedId")
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_school_list);
         initActionBar();
         initFilter();
-        FragmentList fragmentList = new FragmentList();
-        loadData(fragmentList);
+        loadData(new FragmentList());
     }
-
 
     private void loadData(Fragment frg) {
         Retrofit retrofit = RetrofitClient.getClient(APIRestService.BASE_URL);
@@ -72,26 +61,22 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
                 if (response.isSuccessful()) {
                     eduCenterList = response.body();
                     if (frg instanceof FragmentList) {
-                        FragmentList fragmentList = (FragmentList) frg;
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.frgContainer, fragmentList.newInstance(eduCenterList, filter));
+                        transaction.replace(R.id.frgContainer, ((FragmentList) frg).newInstance(eduCenterList, filter));
                         transaction.commit();
-                    }else
-                    {
-                        FragmentMap fragmentMap = (FragmentMap) frg;
+                    }else {
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.frgContainer, fragmentMap.newInstance(eduCenterList));
+                        transaction.replace(R.id.frgContainer, ((FragmentMap) frg).newInstance(eduCenterList));
                         transaction.commit();
                     }
-                    if (EduListActivity.this.eduCenterList.getEduCenters().size() == 0) {
-                        Toast.makeText(EduListActivity.this, R.string.filterError, Toast.LENGTH_SHORT).show();
+                    if (EduActivity.this.eduCenterList.getEduCenters().size() == 0) {
+                        Toast.makeText(EduActivity.this, R.string.filter_error, Toast.LENGTH_SHORT).show();
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<EduCenterList> call, Throwable t) {
-                System.out.println("Error: " + t.getMessage());
+                Toast.makeText(EduActivity.this, getString(R.string.error) + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -126,13 +111,11 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        Fragment frg = null;
         if  (id == R.id.list) {
-            frg = new FragmentList(); 
+            loadData(new FragmentList());
         } else if (id == R.id.map){
-            frg = new FragmentMap(); 
+            loadData(new FragmentMap());
         }
-        loadData(frg);
         return super.onOptionsItemSelected(item);
     }
 
@@ -143,8 +126,28 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
         this.dis = (int) dis;
         setFilterLl(lat, lon, dis);
         filter = true;
-        FragmentList fragmentList = FragmentList.newInstance(eduCenterList, filter);
-        loadData(fragmentList);
+        frgContainer = getSupportFragmentManager().findFragmentById(R.id.frgContainer);
+        if (frgContainer instanceof FragmentList) {
+            loadData(new FragmentList());
+        }else
+        {
+            loadData(new FragmentMap());
+        }
+    }
+
+    @Override
+    public void onDialogResetClick() {
+        System.out.println("Reset");
+        filter = false;
+        frgContainer = getSupportFragmentManager().findFragmentById(R.id.frgContainer);
+        if (frgContainer instanceof FragmentList) {
+            loadData(new FragmentList());
+        }else
+        {
+            loadData(new FragmentMap());
+        }
+        lLayTvMeasures = findViewById(R.id.lLayTvMeasures);
+        lLayTvMeasures.setVisibility(LinearLayout.GONE);
     }
 
     private void setFilterLl(double lat, double lon, double dis) {
@@ -153,5 +156,4 @@ public class EduListActivity extends AppCompatActivity implements OnDialogListen
         tvMeasures.setText("Lat: " + lat + " Lon: " + lon + "\n Distance: " + dis + " meters");
         lLayTvMeasures.setVisibility(LinearLayout.VISIBLE);
     }
-
 }
