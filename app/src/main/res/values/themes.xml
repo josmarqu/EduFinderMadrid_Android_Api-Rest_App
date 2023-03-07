@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.EduFinderMadrid" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/soft_blue</item>
-        <item name="colorPrimaryDark">@color/soft_blue</item>
-        <item name="colorAccent">@color/soft_blue</item>
+        <item name="colorPrimary">@color/soft_red</item>
+        <item name="colorPrimaryDark">@color/soft_red</item>
+        <item name="colorAccent">@color/soft_red</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 </resources>

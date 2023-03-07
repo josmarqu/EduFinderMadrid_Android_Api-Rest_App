@@ -9,9 +9,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-
-
-
 public class EduDetailsActivity extends AppCompatActivity {
     private Button btnBack;
     private TextView tvTittle;
@@ -26,8 +23,15 @@ public class EduDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edu_details);
         initActionBar();
         initButton();
+        initTv();
         setData();
+    }
 
+    private void initTv() {
+        tvTittle = findViewById(R.id.tvTittle);
+        tvLocation = findViewById(R.id.tvLocation);
+        tvSubway = findViewById(R.id.tvSubway);
+        tvBus = findViewById(R.id.tvBus);
     }
 
     private void initButton() {
@@ -40,15 +44,10 @@ public class EduDetailsActivity extends AppCompatActivity {
 
     private void setData() {
         Intent intent = getIntent();
-        //Organization organization = intent.getParcelableExtra("organization");
-     //   if (organization == null)
-        {
-            System.out.println("ESTA VACIOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-        }
-        tvTittle = findViewById(R.id.tvTittle);
-        tvLocation = findViewById(R.id.tvLocation);
-        tvSubway = findViewById(R.id.tvSubway);
-        tvBus = findViewById(R.id.tvBus);
+        tvTittle.setText(intent.getStringExtra("title"));
+        tvLocation.setText(intent.getStringExtra("address"));
+        tvSubway.setText(intent.getStringExtra("subway"));
+        tvBus.setText(intent.getStringExtra("bus"));
     }
 
     private void initActionBar() {

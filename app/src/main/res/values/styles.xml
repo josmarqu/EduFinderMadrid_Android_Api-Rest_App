@@ -8,7 +8,7 @@
 
     <style name="AlertDialogButtonStyle">
         <item name="android:textColor">@color/white</item>
-        <item name="android:backgroundTint">@color/soft_blue</item>
+        <item name="android:backgroundTint">@color/soft_red</item>
         <item name="android:background">@drawable/roundstyle</item>
         <item name="android:minHeight">40dp</item>
         <item name="android:minWidth">70dp</item>
@@ -16,7 +16,7 @@
     </style>
 
     <style name="MainActionBar" parent="Widget.AppCompat.Light.ActionBar">
-        <item name="android:backgroundTint">@color/soft_blue</item>
+        <item name="android:backgroundTint">@color/soft_red</item>
         <item name="android:textColorPrimary">@color/white</item>
     </style>
 

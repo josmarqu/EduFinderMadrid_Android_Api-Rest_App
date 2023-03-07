@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/soft_blue"
+        android:background="@color/soft_red"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/MainActionBar" />
 
@@ -20,7 +20,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/lessroundstyle"
-        android:backgroundTint="@color/soft_blue_light"
+        android:backgroundTint="@color/soft_red_light"
         android:elevation="10dp"
         android:alpha="1"
         android:orientation="horizontal"

@@ -15,4 +15,6 @@
     <string name="back">BACK</string>
     <string name="error">\"Error: \"</string>
     <string name="reset">RESET</string>
+    <string name="no_details_available">No details information available</string>
+    <string name="no_internet">No connection detected for this device</string>
 </resources>

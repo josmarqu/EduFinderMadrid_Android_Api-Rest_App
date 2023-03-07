@@ -58,6 +58,7 @@ public class DialogFilter extends DialogFragment {
                 ad.dismiss();
             });
             Button btnReset = ad.getButton(AlertDialog.BUTTON_NEUTRAL);
+            btnReset.setTextColor(getResources().getColor(R.color.white));
             btnReset.setOnClickListener(view -> {
                 mListener.onDialogResetClick();
                 ad.dismiss();

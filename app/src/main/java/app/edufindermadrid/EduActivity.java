@@ -2,6 +2,9 @@ package app.edufindermadrid;
 
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +49,9 @@ public class EduActivity extends AppCompatActivity implements OnDialogListener{
     }
 
     private void loadData(Fragment frg) {
+        if (!checkInternetConnection()) {
+            Toast.makeText(this, R.string.no_internet, Toast.LENGTH_SHORT).show();
+        }
         Retrofit retrofit = RetrofitClient.getClient(APIRestService.BASE_URL);
         APIRestService apiRestService = retrofit.create(APIRestService.class);
         Call<EduCenterList> call;
@@ -79,6 +85,16 @@ public class EduActivity extends AppCompatActivity implements OnDialogListener{
                 Toast.makeText(EduActivity.this, getString(R.string.error) + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public boolean checkInternetConnection() {
+        boolean isConnected = false;
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isConnected = true;
+        }
+        return isConnected;
     }
 
     private void initFilter() {
