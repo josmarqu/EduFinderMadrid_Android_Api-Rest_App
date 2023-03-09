@@ -3,9 +3,12 @@ An Android Application that calls the api-rest datos.madrid.es using RetroFit RE
 
 Main activity | Edu Activity(list view) | Edu Activity (with filter) 
 :-:|:-:|:-:
-![Screenshot from 2023-03-09 15-48-22](https://user-images.githubusercontent.com/94985283/224069623-e0b7807d-e2b7-45d0-99a9-7e9686fe8572.png) | ![Screenshot from 2023-03-09 15-48-31](https://user-images.githubusercontent.com/94985283/224071649-02853b67-7978-4aa5-ac05-11cc69bb1ad2.png) | ![Screenshot from 2023-03-09 15-58-27](https://user-images.githubusercontent.com/94985283/224069863-41310dd6-a733-4e53-9995-36ee7e8a1498.png)
+![Screenshot from 2023-03-09 16-44-31](https://user-images.githubusercontent.com/94985283/224077185-b2215db1-a63a-4816-a3ee-cf3c47ccabc8.png) | ![Screenshot from 2023-03-09 16-44-38](https://user-images.githubusercontent.com/94985283/224077327-8e627590-aba3-4afb-b606-fddd514d23de.png) | ![Screenshot from 2023-03-09 16-45-09](https://user-images.githubusercontent.com/94985283/224077492-381ed1c3-8710-4ad4-a101-ca0b045d9dc4.png)
 
-Filter Dialog | Edu Activity (map view)
-:-:|:-:
-![Screenshot from 2023-03-09 15-49-26](https://user-images.githubusercontent.com/94985283/224069759-886ba438-37a8-453e-b33d-d09a97088452.png) | ![Screenshot from 2023-03-09 15-58-54](https://user-images.githubusercontent.com/94985283/224069911-fbc84221-159d-418a-8fdf-40e9d8dd2adc.png)
+
+Filter Dialog | Edu Activity (map view) | Edu Detail Activity
+:-:|:-:|:-:
+![Screenshot from 2023-03-09 16-45-04](https://user-images.githubusercontent.com/94985283/224077645-af71fd3f-85ac-4b39-89a2-5985aaaaa15c.png) | ![Screenshot from 2023-03-09 16-45-37](https://user-images.githubusercontent.com/94985283/224077698-f016d161-f441-481f-9f88-0103ecb42458.png) | ![Screenshot from 2023-03-09 16-44-22](https://user-images.githubusercontent.com/94985283/224077902-e72e5221-efcf-448c-b6c0-3829d5688754.png)
+
+
 
