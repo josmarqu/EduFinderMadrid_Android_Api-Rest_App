@@ -3,7 +3,6 @@ package app.edufindermadrid;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
@@ -42,7 +41,7 @@ public class EduActivity extends AppCompatActivity implements OnDialogListener{
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_school_list);
+        setContentView(R.layout.activity_edu);
         initActionBar();
         initFilter();
         loadData(new FragmentList());
