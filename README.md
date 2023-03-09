@@ -15,5 +15,6 @@ Filter Dialog | Edu Activity (map view) | Edu Detail Activity
 - Api-Rest
 - Room Persistance Library
 - Java
+- Google Maps Api
 
 
