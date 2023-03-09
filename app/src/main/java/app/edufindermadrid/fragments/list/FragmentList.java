@@ -86,23 +86,15 @@ public class FragmentList extends Fragment {
                 String[] transport = organization.split("(Metro:)|(Bus:)");
                 String subway;
                 String bus;
-                if (transport.length > 1) {
+                if (transport.length == 3) {
                     subway = transport[1].trim();
-                    if (transport.length > 2) {
-                        bus = transport[2].trim();
-                        bus = bus.substring(0, bus.indexOf('.'));
-                    }
-                    else {
-                        bus = "n/a";
-                    }
+                    bus = transport[2].trim();
+                    bus = bus.substring(0, bus.indexOf('.'));
                 }
-                else
-                {
-                    subway = "n/a";
-                    bus = "n/a";
-                    return;
+                else {
+                     subway = "n/a";
+                     bus = "n/a";
                 }
-
                 String locality = eduDetails.getGraph().getAddress().getLocality();
                 String streetAddress = eduDetails.getGraph().getAddress().getStreetAddress();
                 String postalCode = eduDetails.getGraph().getAddress().getPostalCode();
